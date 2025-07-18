@@ -14,7 +14,8 @@ const LoginScreen = () => {
   const handleLogin = () => {
     console.log("Logging in...");
     // Add your login logic here
-    navigation.navigate('OnboardingConsent');
+    // navigation.navigate('OnboardingConsent');
+    navigation.navigate('Home');
   };
 
   return (
