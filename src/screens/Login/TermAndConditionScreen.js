@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Header from '../../components/Header';
 import { COLORS } from '../../constants/colors';
 import PrimaryButton from '../../components/Button/PrimaryButton';
 import SecondaryButton from '../../components/Button/SecondaryButton';
+import MeiranPay from '../../components/Popup/MeiranPay';
 
 const TermAndConditionScreen = () => {
   const navigation = useNavigation();
+  const [isMeiranPayVisible, setMeiranPayVisible] = useState(true);
 
   const handleAccept = () => {
     console.log("Accepted");
-    navigation.navigate('AadharVerify');
+    setMeiranPayVisible(true);
+  };
+
+  const handleMeiranPayClose = () => {
+    setMeiranPayVisible(false);
+    console.log("MeiranPay closed");
+  };
+
+  const handleMeiranPayPay = () => {
+    console.log("Payment initiated");
+    // Add payment logic here Journey
+    // navigation.navigate('AadharVerify');
+    navigation.navigate('Journey');
   };
 
   return (
@@ -35,6 +49,11 @@ const TermAndConditionScreen = () => {
             </View>
           </View>
         </ScrollView>
+        <MeiranPay 
+          visible={isMeiranPayVisible} 
+          onClose={handleMeiranPayClose} 
+          onPay={handleMeiranPayPay} 
+        />
       </KeyboardAvoidingView>
   );
 };

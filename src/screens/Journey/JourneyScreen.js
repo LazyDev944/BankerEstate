@@ -1,12 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Header from '../../components/Header';
+import OnBoardPanCard from '../Form/OnBoardPanCard';
+import UdyamFetchedDetailCard from '../Form/UdyamFetchedDetailCard';
 
 const JourneyScreen = () => {
+  const [fetchedUdyamDetails, setFetchedUdyamDetails] = React.useState(false);
   return (
     <View style={styles.container}>
       <Header title="Journey" />
-      <Text>Welcome to the Journey Screen</Text>
+      <OnBoardPanCard onContinue={()=>setFetchedUdyamDetails(true)}/>
+      {fetchedUdyamDetails && <UdyamFetchedDetailCard />}
     </View>
   );
 };
@@ -14,7 +18,6 @@ const JourneyScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
   },
 });
 

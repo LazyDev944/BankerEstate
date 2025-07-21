@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 14,
-    color: COLORS.black,
-    marginBottom: 4,
+    color: COLORS.darkGray,
+    marginTop: 4,
   },
   input: {
     borderWidth: 1,
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     marginVertical: 8,
-    width: '100%', // Ensure the input takes full width of its parent
+    width: '100%',
   },
 });
 

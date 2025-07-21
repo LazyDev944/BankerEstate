@@ -2,16 +2,26 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import PrimaryButton from '../../components/Button/PrimaryButton';
 import { useNavigation } from '@react-navigation/native';
+import OnBoardCustomer from '../../components/Popup/OnBoardCustomer';
 
 const Dashboard = () => {
     const navigation = useNavigation();
-
+    const [visible, setVisible] = React.useState(false);
     const OnboardNewCustomer = () => {
+        setVisible(true);
         console.log("Onboarding new customer...");
+    };
+
+    const onSendConsent = (data) => {
+        console.log("Consent data sent:", data);
+        setVisible(false);
+        // Here you would typically send the data to your backend or API
         navigation.navigate('OnboardingConsent');
+
     };
     return (
   <ScrollView style={styles.container}>
+  <OnBoardCustomer visible={visible} onClose={()=>setVisible(false)} onSendConsent={onSendConsent} />
     <Text style={styles.header}>Welcome to your Dashboard</Text>
     <PrimaryButton title="Onboard New Customer" onPress={OnboardNewCustomer} color="#007BFF" />
     <View style={styles.cardsContainer}>
