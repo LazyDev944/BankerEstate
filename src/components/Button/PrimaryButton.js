@@ -11,7 +11,7 @@ const PrimaryButton = ({ title, onPress, backgroundColor = COLORS.black }) => (
 const styles = StyleSheet.create({
   button: {
     padding: 12,
-    borderRadius: 8,
+    borderRadius: 4,
     width: '100%',
   },
   text: {

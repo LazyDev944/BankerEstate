@@ -9,7 +9,7 @@ import MeiranPay from '../../components/Popup/MeiranPay';
 
 const TermAndConditionScreen = () => {
   const navigation = useNavigation();
-  const [isMeiranPayVisible, setMeiranPayVisible] = useState(true);
+  const [isMeiranPayVisible, setMeiranPayVisible] = useState(false);
 
   const handleAccept = () => {
     console.log("Accepted");
@@ -25,7 +25,7 @@ const TermAndConditionScreen = () => {
     console.log("Payment initiated");
     // Add payment logic here Journey
     // navigation.navigate('AadharVerify');
-    navigation.navigate('Journey');
+    navigation.navigate('OnboardPAN');
   };
 
   return (

@@ -3,12 +3,16 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Input from '../../components/Input/Input';
 import PrimaryButton from '../../components/Button/PrimaryButton';
 import SecondaryButton from '../../components/Button/SecondaryButton';
+import Header from '../../components/Header';
+import { useNavigation } from '@react-navigation/native';
+import Checkbox from '../../components/Checkbox/checkbox';
 
-const OnBoardPanCard = ({ onContinue }) => {
+const OnBoardPanCard = () => {
+  const navigation = useNavigation();
   const [panNumber, setPanNumber] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
-  const [isRegisteredWithMSME, setIsRegisteredWithMSME] = useState(false);
+  const [isRegisteredWithMSME, setIsRegisteredWithMSME] = useState(true);
   const [udyamNumber, setUdyamNumber] = useState('');
 
   const handleContinueWithoutMSME = () => {
@@ -22,8 +26,10 @@ const OnBoardPanCard = ({ onContinue }) => {
     } else {
       if (!isRegisteredWithMSME) {
         handleContinueWithoutMSME();
+        navigation.navigate('OnboardCIN');
       } else {
-        onContinue({ panNumber, mobileNumber, isRegisteredWithMSME, udyamNumber });
+        console.log({ panNumber, mobileNumber, isRegisteredWithMSME, udyamNumber });
+        navigation.navigate('UdyamDetails');
       }
       setPanNumber('');
       setMobileNumber('');
@@ -34,6 +40,8 @@ const OnBoardPanCard = ({ onContinue }) => {
   };
 
   return (
+    <View style={styles.container}>
+      <Header title="Journey" />
     <View style={styles.overlay}>
       <View style={styles.popup}>
         <Text style={styles.title}>Customer Onboarding Details</Text>
@@ -52,32 +60,16 @@ const OnBoardPanCard = ({ onContinue }) => {
             <>
               <Text style={styles.boldText}>Are you Registered with MSME?</Text>
               <View style={styles.checkboxContainer}>
-                <TouchableOpacity
-                  style={styles.checkboxRow}
+                <Checkbox
+                  label="Yes, I am Registered"
+                  isChecked={isRegisteredWithMSME}
                   onPress={() => setIsRegisteredWithMSME(true)}
-                >
-                  {isRegisteredWithMSME === true ? <Image
-                    source={require('../../assets/Filled.png')}
-                    style={styles.checkboxIcon}
-                  /> : <Image
-                  source={require('../../assets/Empty.png')}
-                  style={styles.checkboxIcon}
-                />}
-                  <Text style={styles.checkboxLabel}>Yes, I am Registered</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.checkboxRow}
-                  onPress={() => setIsRegisteredWithMSME(false)}
-                >
-                  {isRegisteredWithMSME === false ? <Image
-                    source={require('../../assets/Filled.png')}
-                    style={styles.checkboxIcon}
-                  /> : <Image
-                  source={require('../../assets/Empty.png')}
-                  style={styles.checkboxIcon}
-                />}
-                  <Text style={styles.checkboxLabel}>No, I am not</Text>
-                </TouchableOpacity>
+                />
+                <Checkbox
+                  label="No, I am not"
+                  isChecked={!isRegisteredWithMSME}
+                  onPress={() => setIsRegisteredWithMSME(!isRegisteredWithMSME)}
+                />
               </View>
              {isRegisteredWithMSME ? <Input
                 headerText="Udyam Registration Number"
@@ -106,10 +98,14 @@ const OnBoardPanCard = ({ onContinue }) => {
         </View>
       </View>
     </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   overlay: {
     flex: 1,
     justifyContent: 'center',
