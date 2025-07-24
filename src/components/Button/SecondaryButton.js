@@ -3,8 +3,8 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { COLORS } from '../../constants/colors';
 
-const SecondaryButton = ({ title, onPress, borderColor = COLORS.black, textColor = COLORS.black }) => (
-  <TouchableOpacity style={[styles.button, { borderColor }]} onPress={onPress}>
+const SecondaryButton = ({ title, onPress, borderColor = COLORS.black, textColor = COLORS.black, borderType = 'solid' }) => (
+  <TouchableOpacity style={[styles.button, { borderColor, borderStyle: borderType }]} onPress={onPress}>
     <Text style={[styles.text, { color: textColor }]}>{title}</Text>
   </TouchableOpacity>
 );

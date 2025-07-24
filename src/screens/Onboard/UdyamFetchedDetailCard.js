@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   popup: {
-    width: '90%',
+    width: '95%',
     backgroundColor: 'white',
     borderRadius: 10,
     alignItems: 'center',
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
   },
   content: {
-    padding: 20,
+    padding: 10,
     width: '100%',
   },
   closeIcon: {
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     marginVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
   infoHeader: {
     fontSize: 16,

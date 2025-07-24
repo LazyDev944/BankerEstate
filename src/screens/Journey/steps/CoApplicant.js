@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import PrimaryButton from '../../../components/Button/PrimaryButton';
 import SecondaryButton from '../../../components/Button/SecondaryButton';
 import Input from '../../../components/Input/Input';
@@ -9,23 +9,43 @@ const CoApplicant = ({ onCancel, onContinue }) => {
   const [applicantIncomeAmount, setApplicantIncomeAmount] = React.useState('');
   const [applicantUploadBankStatement, setApplicantUploadBankStatement] = React.useState(true);
 
-  const [coApplicantIncomeAmount, setCoApplicantIncomeAmount] = React.useState('');
-  const [coApplicantUploadBankStatement, setCoApplicantUploadBankStatement] = React.useState(true);
+  const [coApplicants, setCoApplicants] = React.useState([
+    { id: 1, pan: '', name: '', mobileNumber: '' },
+  ]);
 
-  // Add separate state variables for PAN, Name, and Mobile Number
-  const [coApplicantPAN, setCoApplicantPAN] = React.useState('');
-  const [coApplicantName, setCoApplicantName] = React.useState('');
-  const [coApplicantMobileNumber, setCoApplicantMobileNumber] = React.useState('');
+  const handleAddCoApplicant = () => {
+    setCoApplicants((prev) => [
+      ...prev,
+      { id: prev.length + 1, pan: '', name: '', mobileNumber: '' },
+    ]);
+  };
+
+  const handleInputChange = (id, field, value) => {
+    setCoApplicants((prev) =>
+      prev.map((applicant) =>
+        applicant.id === id ? { ...applicant, [field]: value } : applicant
+      )
+    );
+  };
+
+  const handleSendConsentLink = (id) => {
+    const applicant = coApplicants.find((applicant) => applicant.id === id);
+    console.log('Sending consent link for:', applicant);
+    // Add logic to send consent link
+  };
+
+  const handleDeleteCoApplicant = (id) => {
+    setCoApplicants((prev) => prev.filter((applicant) => applicant.id !== id));
+  };
 
   return (
     <View style={styles.fullScreenContainer}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        {/* <Text style={styles.title}>Loan Details</Text> */}
         <View style={styles.checkboxWrapper}>
-            <View>
-                <Text>Do you want to add Co- Applicant</Text>
-            </View>
-            <View style={styles.checkboxContainer}>
+          <View>
+            <Text>Do you want to add Co- Applicant</Text>
+          </View>
+          <View style={styles.checkboxContainer}>
             <Checkbox
               label="Yes"
               isChecked={applicantUploadBankStatement}
@@ -38,31 +58,43 @@ const CoApplicant = ({ onCancel, onContinue }) => {
             />
           </View>
         </View>
-        <View style={styles.card}>
-          <Text style={styles.cardHeader}>Co-Applicant 1</Text>
-          <View style={styles.cardContent}>
-            
-                <Text style={{fontWeight:'bold'}}>Income Details</Text>
-                <Input
-                    headerText="PAN"
-                    placeholder="Enter PAN"
-                    value={coApplicantPAN}
-                    onChangeText={setCoApplicantPAN}
-                />
-                <Input
-                    headerText="Name"
-                    placeholder="Enter Name"
-                    value={coApplicantName}
-                    onChangeText={setCoApplicantName}
-                />
-                <Input
-                    headerText="Mobile Number"
-                    placeholder="Enter Mobile Number"
-                    value={coApplicantMobileNumber}
-                    onChangeText={setCoApplicantMobileNumber}
-                />
-                <PrimaryButton title="Send Consent Link" onPress={() => {}} />
+        {coApplicants.map((applicant) => (
+          <View key={applicant.id} style={styles.card}>
+            <View style={styles.cardHeaderContainer}>
+              <Text style={styles.cardHeader}>Co-Applicant {applicant.id}</Text>
+              <TouchableOpacity onPress={() => handleDeleteCoApplicant(applicant.id)}>
+                <Text style={styles.deleteButton}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.cardContent}>
+              <Text style={{ fontWeight: 'bold' }}>Income Details</Text>
+              <Input
+                headerText="PAN"
+                placeholder="Enter PAN"
+                value={applicant.pan}
+                onChangeText={(value) => handleInputChange(applicant.id, 'pan', value)}
+              />
+              <Input
+                headerText="Name"
+                placeholder="Enter Name"
+                value={applicant.name}
+                onChangeText={(value) => handleInputChange(applicant.id, 'name', value)}
+              />
+              <Input
+                headerText="Mobile Number"
+                placeholder="Enter Mobile Number"
+                value={applicant.mobileNumber}
+                onChangeText={(value) => handleInputChange(applicant.id, 'mobileNumber', value)}
+              />
+              <PrimaryButton
+                title="Send Consent Link"
+                onPress={() => handleSendConsentLink(applicant.id)}
+              />
+            </View>
           </View>
+        ))}
+        <View style={{width: '100%', marginBottom: 16}}>
+        <SecondaryButton title="+ Add Co-Applicant" borderType={'dashed'} onPress={handleAddCoApplicant} />
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
@@ -115,6 +147,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     padding: 8,
+  },
+  cardHeaderContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  deleteButton: {
+    color: 'red',
+    fontWeight: 'bold',
+    marginRight: 15,
+    textDecorationLine: 'underline',
   },
   cardContent: {
     backgroundColor: '#FFFFFF',
