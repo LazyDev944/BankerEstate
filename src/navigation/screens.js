@@ -7,6 +7,7 @@ import AadharVerifyScreen from '../screens/Login/AadharVerifyScreen';
 import OnBoardPanCard from '../screens/Onboard/OnBoardPanCard';
 import OnBoardCinCard from '../screens/Onboard/OnBoardCinCard';
 import UdyamFetchedDetailCard from '../screens/Onboard/UdyamFetchedDetailCard';
+import BCMLoginScreen from '../screens/Login/BCMLogin';
 
 export const screens = {
   Login: LoginScreen,
@@ -18,4 +19,5 @@ export const screens = {
   OnboardCIN:OnBoardCinCard,
   UdyamDetails:UdyamFetchedDetailCard,
   Journey: JourneyScreen,
+  BCMLogin:BCMLoginScreen
 };

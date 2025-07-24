@@ -90,7 +90,7 @@ const LoanDetails = ({ onCancel, onContinue }) => {
         {/* End of New Cards Section */}
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <View style={styles.flexHalf}><PrimaryButton title={"Continue"} onPress={onContinue} /></View>
+        <View style={styles.flexHalf}><PrimaryButton title={"Send to BCM"} onPress={onContinue} /></View>
         <View style={styles.flexHalf}><SecondaryButton title="Cancel" onPress={onCancel} /></View>
       </View>
     </View>

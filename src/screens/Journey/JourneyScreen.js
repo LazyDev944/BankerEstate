@@ -6,8 +6,10 @@ import CoApplicant from './steps/CoApplicant';
 import CICReport from './steps/CICReport';
 import FinancialDetails from './steps/FinancialDetails';
 import LoanDetails from './steps/LoanDetails';
+import { useNavigation } from '@react-navigation/native';
 
 const JourneyScreen = () => {
+  const navigation = useNavigation();
   const [currentStep, setCurrentStep] = useState(0);
   const steps = ['Business Details', 'Co-Applicant', 'CIC Report', 'Financial Details', 'Loan Details'];
 
@@ -15,6 +17,12 @@ const JourneyScreen = () => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
+  };
+
+  const handleFinalStep = () => {
+    // Handle final step logic here
+    console.log('Final step reached');
+    navigation.navigate('BCMLogin'); // Navigate to home or any other screen
   };
 
   const renderStepComponent = () => {
@@ -28,7 +36,7 @@ const JourneyScreen = () => {
       case 3:
         return <FinancialDetails onCancel={() => setCurrentStep(0)} onContinue={handleNextStep} />;
       case 4:
-        return <LoanDetails onCancel={() => setCurrentStep(0)} onContinue={handleNextStep} />;
+        return <LoanDetails onCancel={() => setCurrentStep(0)} onContinue={handleFinalStep} />;
       default:
         return null;
     }

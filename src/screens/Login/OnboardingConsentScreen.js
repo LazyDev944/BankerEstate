@@ -43,14 +43,16 @@ const OnboardingConsentScreen = () => {
 
             <View style={styles.checkboxContainer}>
               <TouchableOpacity
-                style={[styles.checkbox, isChecked && styles.checkboxChecked]}
+                style={[styles.checkboxWrapper, isChecked && styles.checkboxWrapperChecked]}
                 onPress={toggleCheckbox}
               >
-                {isChecked && <Text style={styles.checkboxTick}>✔</Text>}
+                <View style={[styles.checkbox, isChecked && styles.checkboxChecked]}>
+                  {isChecked && <Text style={styles.checkboxTick}>✔</Text>}
+                </View>
+                <Text style={styles.checkboxText}>
+                  I, the Applicant, hereby provide my explicit consent for procuring my credit information from the bureaus registered under the Credit Information Companies (Regulation) Act 2005 during the onboarding process and on a continuous basis from time to time in line with applicable policies of the Company.
+                </Text>
               </TouchableOpacity>
-              <Text style={styles.checkboxText}>
-              I, the Applicant, hereby provide my explicit consent for procuring my credit information from the bureaus registered under the Credit Information Companies (Regulation) Act 2005 during the onboarding process and on a continuous basis from time to time in line with applicable policies of the Company.
-              </Text>
             </View>
 
             <View style={styles.buttonContainer}>
@@ -126,8 +128,23 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   checkboxContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     marginBottom: 16,
+    padding: 12,
+    // backgroundColor: COLORS.lightGray,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: COLORS.gray,
+  },
+  checkboxWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  checkboxWrapperChecked: {
+    backgroundColor: COLORS.white,
+    borderRadius: 8,
+    // padding: 8,
   },
   checkbox: {
     width: 24,
@@ -137,11 +154,11 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 8,
+    marginRight: 12,
   },
   checkboxChecked: {
-    backgroundColor: COLORS.black,
-    borderColor: COLORS.black,
+    backgroundColor: COLORS.green,
+    borderColor: COLORS.green,
   },
   checkboxTick: {
     color: COLORS.white,
@@ -152,6 +169,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.black,
     flex: 1,
+    lineHeight: 20,
   },
   buttonContainer: {
     justifyContent: 'space-between',
